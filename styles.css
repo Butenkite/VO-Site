@@ -237,56 +237,59 @@ main, .top, .foot {
   margin-top: 30px;
 }
 
-/* ───────── photo ───────── */
+/* ───────── photos: paper cut-outs ─────────
+   Each photo gets a white border that follows its outline (four hard
+   drop-shadows), like it was cut out with scissors, plus a paper shadow.
+   Works for transparent cut-outs and ordinary rectangular photos alike. */
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(200px, 290px);
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 330px);
   gap: 40px clamp(32px, 6vw, 72px);
-  align-items: center;
+  align-items: end;
 }
-.photo {
+.cutouts { margin: 0; }
+.cutout-stage {
   position: relative;
-  margin: 0;
-  transform: rotate(2.6deg);
-}
-.photo-paper {
-  --lift: 3px;
-  padding: 14px 14px 10px;
-}
-.photo img {
   display: block;
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  background: #dfe3e0;
+  height: clamp(300px, 32vw, 420px);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
 }
-.photo figcaption {
-  padding-top: 8px;
-  font: 400 1.35rem/1.2 var(--hand);
-  text-align: center;
-}
-.photo figcaption:empty { display: none; }
-.photo::before {
-  /* tape across the top */
-  content: "";
+button.cutout-stage { cursor: pointer; }
+.cutout-stage img {
   position: absolute;
-  z-index: 2;
-  top: -12px;
-  left: 50%;
-  width: 96px;
-  height: 28px;
-  margin-left: -48px;
-  background: var(--tape);
-  transform: rotate(-4deg);
-  clip-path: polygon(3% 8%, 22% 0, 48% 6%, 74% 0, 97% 5%, 100% 92%, 76% 100%, 51% 94%, 26% 100%, 0 95%);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  visibility: hidden;
+  transform: rotate(var(--r, 0deg));
+  filter:
+    drop-shadow(3px 0 0 var(--paper))
+    drop-shadow(-3px 0 0 var(--paper))
+    drop-shadow(0 3px 0 var(--paper))
+    drop-shadow(0 -3px 0 var(--paper))
+    drop-shadow(2px 3px 0 var(--shadow));
 }
+.cutout-stage img.is-on { visibility: visible; }
+.cutouts figcaption {
+  margin-top: 14px;
+  font: 400 1.4rem/1.2 var(--hand);
+  text-align: center;
+  transform: rotate(-2deg);
+}
+.cutouts figcaption:empty { display: none; }
 .hero--no-photo { grid-template-columns: 1fr; }
 
 @media (max-width: 720px) {
   .hero { grid-template-columns: 1fr; }
   .name-strip h1 { font-size: clamp(3rem, 13vw, 5rem); }
-  .photo { width: min(250px, 72%); margin-left: 8px; }
+  .cutouts { width: min(300px, 82%); }
+  .cutout-stage { height: 320px; }
 }
 
 /* ───────── section headings ───────── */

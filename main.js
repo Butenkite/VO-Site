@@ -79,13 +79,45 @@
   }
   $("[data-year]").textContent = new Date().getFullYear();
 
-  const photo = S.photo || {};
-  if (has(photo.file)) {
-    const img = $("[data-photo]");
-    img.src = photo.file;
-    img.alt = photo.alt || (name ? `Photo of ${name}` : "Photo");
-    $("[data-photo-caption]").textContent = photo.caption || "";
+  /* ───────── photos: one at a time, hard cut to the next ───────── */
+  const photos = (Array.isArray(S.photos) ? S.photos : S.photo ? [S.photo] : []).filter((p) => p && has(p.file));
+  if (photos.length) {
+    const many = photos.length > 1;
+    const old = $("[data-photo-stage]");
+    const stage = el(many ? "button" : "div", {
+      class: "cutout-stage",
+      type: many ? "button" : null,
+      "aria-label": many ? "Show next photo" : null,
+    });
+    old.replaceWith(stage);
+    const tilts = [-2.5, 2, -1, 3, -3.5];
+    const imgs = photos.map((p, i) => {
+      const img = el("img", { src: p.file, alt: p.alt || (name ? `Photo of ${name}` : "Photo"), decoding: "async" });
+      img.style.setProperty("--r", (p.tilt ?? tilts[i % tilts.length]) + "deg");
+      stage.append(img);
+      return img;
+    });
+    let at = 0;
+    const show = (i) => {
+      at = (i + imgs.length) % imgs.length;
+      imgs.forEach((img, k) => {
+        img.classList.toggle("is-on", k === at);
+        img.toggleAttribute("aria-hidden", k !== at);
+      });
+    };
+    show(0);
+    $("[data-photo-caption]").textContent = S.photoCaption ?? (S.photo && S.photo.caption) ?? "";
     $("[data-photo-wrap]").hidden = false;
+
+    if (many) {
+      const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const every = Math.max(1, Number(S.photoSeconds) || 3) * 1000;
+      let timer = null;
+      const start = () => { if (!still && !timer) timer = setInterval(() => !document.hidden && show(at + 1), every); };
+      const restart = () => { clearInterval(timer); timer = null; start(); };
+      stage.addEventListener("click", () => { show(at + 1); restart(); });
+      start();
+    }
   } else {
     $(".hero").classList.add("hero--no-photo");
   }

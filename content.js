@@ -10,11 +10,17 @@
 window.SITE = {
   name: "Your Name",
   tagline: "Voice actor for animation and video games.",
-  photo: {
-    file: "images/photo-placeholder.svg",
-    alt: "Headshot of Your Name",
-    caption: "that's me!",  
-  },
+
+  // Photos of you, shown as paper cut-outs in the top section.
+  // Any shape works: transparent cut-outs get a white border that follows your outline.
+  // More than one cycles (and clicking jumps to the next). Empty list hides it.
+  photos: [
+    { file: "images/me-1.webp", alt: "Me grinning and adjusting my glasses" },
+    { file: "images/me-2.webp", alt: "Me on the phone" },
+    { file: "images/me-3.webp", alt: "Me mid-step, looking surprised" },
+  ],
+  photoCaption: "that's me!",   // handwritten under the photo; "" to hide
+  photoSeconds: 3,              // how long each photo stays up
 
   // A few words casting folks can scan. Shown as little scraps under your name.
   voice: ["Character work", "Creatures & efforts", "Natural, youthful read"],
