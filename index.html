@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voice Actor</title>
+  <meta name="description" content="Voice actor for animation and video games.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 7l5-2 6 1 5-2 6 2 4-1 0 19-4 2-6-1-5 2-6-2-5 1z' fill='%23fdfdfa' stroke='%2326272b' stroke-width='1.5'/%3E%3Cpath d='M11 12c3 2 3 6 0 8M16 9c5 4 5 11 0 14' fill='none' stroke='%232846a6' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/gochi-hand-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Line-boil frames: three slightly different wobbles the hand-drawn bits step between. -->
+  <svg class="defs" aria-hidden="true" width="0" height="0">
+    <filter id="boil-0"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter>
+    <filter id="boil-1"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter>
+    <filter id="boil-2"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="13"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter>
+  </svg>
+
+  <header class="top">
+    <a class="home-mark" href="#top" data-name></a>
+    <nav aria-label="Sections">
+      <ul class="nav">
+        <li><a class="scrap" href="#listen">listen</a></li>
+        <li><a class="scrap" href="#roles">roles</a></li>
+        <li><a class="scrap" href="#about">about</a></li>
+        <li><a class="scrap" href="#contact">contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-name">
+      <div class="name-strip">
+        <h1 id="hero-name" class="torn boil" data-name></h1>
+      </div>
+      <p class="tagline" data-tagline></p>
+      <ul class="voice-tags" data-voice></ul>
+      <div class="hero-actions">
+        <button class="scrap scrap--blue" type="button" data-play-latest>play a clip</button>
+        <a class="scrap" href="#contact">get in touch</a>
+      </div>
+      <svg class="doodle boil" viewBox="0 0 120 90" aria-hidden="true">
+        <!-- hand-drawn mic with a little sound squiggle -->
+        <path d="M38 14c10-5 22-2 25 9 3 12-2 24-12 27-11 3-20-6-21-17-1-8 2-15 8-19z" />
+        <path d="M33 30c4 1 8 0 11-2M35 38c5 1 10 0 14-3M40 46c4 0 8-1 11-4" />
+        <path d="M27 40c0 14 10 22 22 21 11-1 18-10 18-22" />
+        <path d="M48 62l1 16M36 80c8-2 17-2 26 0" />
+        <path d="M78 24c6 4 6 12 0 17M86 17c10 8 10 24 0 32M95 11c13 11 13 32 0 44" />
+      </svg>
+    </section>
+
+    <section id="listen" class="sheet sheet--ruled torn" aria-labelledby="listen-h">
+      <h2 id="listen-h" class="hand-h">listen</h2>
+      <div data-reels></div>
+      <h3 class="hand-sub" data-samples-h>clips</h3>
+      <ol class="tracks" data-samples></ol>
+    </section>
+
+    <section id="roles" aria-labelledby="roles-h">
+      <h2 id="roles-h" class="hand-h">roles</h2>
+      <ul class="tags" data-roles></ul>
+    </section>
+
+    <div class="pair">
+      <section id="about" class="sheet sheet--typed torn" aria-labelledby="about-h">
+        <h2 id="about-h" class="hand-h">about</h2>
+        <div class="about-body" data-about></div>
+      </section>
+
+      <section class="card torn" aria-labelledby="studio-h" data-studio-wrap>
+        <h2 id="studio-h" class="hand-h hand-h--small">the booth</h2>
+        <ul class="studio" data-studio></ul>
+      </section>
+    </div>
+
+    <section id="contact" class="contact" aria-labelledby="contact-h">
+      <h2 id="contact-h" class="hand-h">contact</h2>
+      <p class="contact-lead">Auditions, bookings, or just a hello:</p>
+      <a class="scrap scrap--big" data-email></a>
+      <p class="agent" data-agent></p>
+      <ul class="links" data-links></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>© <span data-year></span> <span data-name></span></p>
+  </footer>
+
+  <script src="content.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
