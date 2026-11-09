@@ -23,7 +23,7 @@ window.SITE = {
   photoSeconds: 3,              // how long each photo stays up
 
   // A few words casting folks can scan. Shown as little scraps under your name.
-  voice: ["Character work", "Creatures & efforts", "Natural, youthful read"],
+  voice: ["Character work", "Creatures & efforts", "Weird little guys"],
 
   // Paragraphs for the "About" page. One string per paragraph.
   about: [
@@ -46,27 +46,26 @@ window.SITE = {
   // status: "Booked", "In production", "Released" (free text, shown on the tag)
   // link is optional
   roles: [
-    { character: "Character name", project: "Project title", studio: "Studio name", type: "Game", status: "Booked", year: "2026", link: "" },
-    { character: "Character name", project: "Project title", studio: "Studio name", type: "Animation", status: "Booked", year: "2026", link: "" },
+    { character: "Akito Shinonome", project: "VIVID BAD SQUAD UNIT English Dub", studio: "Studio: Our Stage", type: "Fan Dubbing", status: "Booked", year: "2026", link: "" },
+    { character: "King Ateret", project: "Epoch Archives", studio: "Youtube", type: "Animation", status: "Booked", year: "2026", link: "" },
   ],
 
   // Your setup. Remove any line you don't want shown; empty list hides the card.
   studio: [
-    "Treated home booth",
-    "Microphone: (your mic)",
-    "Interface: (your interface)",
-    "Remote sessions: Zoom, Discord, SessionLinkPRO",
+    "Microphone: Blue Yeti",
+    "Monitoring: Sennheiser HD 560S",
+    "DAW: Audacity",
+    "Remote sessions: Zoom, Discord",
     "Clean, edited files within 24–48 hours",
   ],
 
   contact: {
-    email: "you@example.com",
+    email: "Butenkite@gmail.com",
     // Optional. Leave "" to hide.
     agent: "",
     // Any number of links. { label: "Casting Call Club", url: "https://..." }
     links: [
-      { label: "Casting Call Club", url: "#" },
-      { label: "Instagram", url: "#" },
+      { label: "Casting Call Club", url: "https://www.castingcall.club/m/alltrex" },
     ],
   },
 };
