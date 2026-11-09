@@ -106,13 +106,44 @@ main, .top, .foot {
 /* ───────── frame animation ─────────
    No tweening anywhere: things hold a pose, then cut to the next one,
    like a few drawings flipped by hand. --frame is how long each pose holds. */
-@keyframes wave-1 { 0% { opacity: 0; } 25%, 100% { opacity: 1; } }
-@keyframes wave-2 { 0% { opacity: 0; } 50%, 100% { opacity: 1; } }
-@keyframes wave-3 { 0% { opacity: 0; } 75%, 100% { opacity: 1; } }
-.wave { opacity: 0; animation: calc(var(--frame) * 4) steps(1, end) infinite; }
-.wave-1 { animation-name: wave-1; }
-.wave-2 { animation-name: wave-2; }
-.wave-3 { animation-name: wave-3; }
+/* Background mic: five waves, one per frame, each pushing out from the mic and
+   lingering faintly for one frame after. Six frames per cycle (the sixth lets the
+   last wave fade before the first returns). */
+@keyframes wave {
+  0%       { opacity: 1; }
+  16.667%  { opacity: 0.35; }
+  33.333%, 100% { opacity: 0; }
+}
+.wave { opacity: 0; animation: wave calc(var(--frame) * 6) steps(1, end) infinite; }
+.wave-2 { animation-delay: calc(var(--frame) * 1); }
+.wave-3 { animation-delay: calc(var(--frame) * 2); }
+.wave-4 { animation-delay: calc(var(--frame) * 3); }
+.wave-5 { animation-delay: calc(var(--frame) * 4); }
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Sized off the viewport height so the mic stays big on any screen shape;
+   on narrow screens the waves just run off the right edge. */
+.backdrop svg {
+  display: block;
+  height: 100%;
+  width: 160vh;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.backdrop path { vector-effect: non-scaling-stroke; }
+.backdrop-mic { stroke: rgba(38, 39, 43, 0.17); stroke-width: 3; }
+.backdrop-waves { stroke: rgba(40, 70, 166, 0.24); stroke-width: 3.5; }
+@media (max-width: 720px) {
+  .backdrop-mic { stroke: rgba(38, 39, 43, 0.11); }
+  .backdrop-waves { stroke: rgba(40, 70, 166, 0.16); }
+}
 
 /* a playing clip's button flips between its two angles */
 @keyframes tap {
@@ -123,7 +154,7 @@ main, .top, .foot {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .wave { animation: none; opacity: 1; }
+  .wave { animation: none; opacity: 0.5; }
   .is-playing .play { animation: none; }
 }
 
@@ -250,25 +281,12 @@ main, .top, .foot {
   transform: rotate(-4deg);
   clip-path: polygon(3% 8%, 22% 0, 48% 6%, 74% 0, 97% 5%, 100% 92%, 76% 100%, 51% 94%, 26% 100%, 0 95%);
 }
-.mic {
-  position: absolute;
-  left: -70px;
-  bottom: -44px;
-  width: 112px;
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transform: rotate(-6deg);
-}
 .hero--no-photo { grid-template-columns: 1fr; }
 
 @media (max-width: 720px) {
   .hero { grid-template-columns: 1fr; }
   .name-strip h1 { font-size: clamp(3rem, 13vw, 5rem); }
   .photo { width: min(250px, 72%); margin-left: 8px; }
-  .mic { left: auto; right: -96px; bottom: 6px; width: 84px; }
 }
 
 /* ───────── section headings ───────── */

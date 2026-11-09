@@ -85,8 +85,8 @@
     img.src = photo.file;
     img.alt = photo.alt || (name ? `Photo of ${name}` : "Photo");
     $("[data-photo-caption]").textContent = photo.caption || "";
+    $("[data-photo-wrap]").hidden = false;
   } else {
-    $("[data-photo-wrap]").hidden = true;
     $(".hero").classList.add("hero--no-photo");
   }
 
