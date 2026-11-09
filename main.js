@@ -79,6 +79,17 @@
   }
   $("[data-year]").textContent = new Date().getFullYear();
 
+  const photo = S.photo || {};
+  if (has(photo.file)) {
+    const img = $("[data-photo]");
+    img.src = photo.file;
+    img.alt = photo.alt || (name ? `Photo of ${name}` : "Photo");
+    $("[data-photo-caption]").textContent = photo.caption || "";
+  } else {
+    $("[data-photo-wrap]").hidden = true;
+    $(".hero").classList.add("hero--no-photo");
+  }
+
   const voice = $("[data-voice]");
   (S.voice || []).forEach((v) => voice.append(el("li", { text: v })));
   if (!has(S.voice)) voice.hidden = true;

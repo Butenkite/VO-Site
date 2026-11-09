@@ -10,6 +10,11 @@
 window.SITE = {
   name: "Your Name",
   tagline: "Voice actor for animation and video games.",
+  photo: {
+    file: "images/photo-placeholder.svg",
+    alt: "Headshot of Your Name",
+    caption: "that's me!",  
+  },
 
   // A few words casting folks can scan. Shown as little scraps under your name.
   voice: ["Character work", "Creatures & efforts", "Natural, youthful read"],

@@ -10,13 +10,6 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Line-boil frames: three slightly different wobbles the hand-drawn bits step between. -->
-  <svg class="defs" aria-hidden="true" width="0" height="0">
-    <filter id="boil-0"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter>
-    <filter id="boil-1"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter>
-    <filter id="boil-2"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="13"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter>
-  </svg>
-
   <header class="top">
     <a class="home-mark" href="#top" data-name></a>
     <nav aria-label="Sections">
@@ -31,23 +24,34 @@
 
   <main id="top">
     <section class="hero" aria-labelledby="hero-name">
-      <div class="name-strip">
-        <h1 id="hero-name" class="torn boil" data-name></h1>
+      <div class="hero-text">
+        <div class="name-strip">
+          <h1 id="hero-name" class="torn" data-name></h1>
+        </div>
+        <p class="tagline" data-tagline></p>
+        <ul class="voice-tags" data-voice></ul>
+        <div class="hero-actions">
+          <button class="scrap scrap--blue" type="button" data-play-latest>play a clip</button>
+          <a class="scrap" href="#contact">get in touch</a>
+        </div>
       </div>
-      <p class="tagline" data-tagline></p>
-      <ul class="voice-tags" data-voice></ul>
-      <div class="hero-actions">
-        <button class="scrap scrap--blue" type="button" data-play-latest>play a clip</button>
-        <a class="scrap" href="#contact">get in touch</a>
-      </div>
-      <svg class="doodle boil" viewBox="0 0 120 90" aria-hidden="true">
-        <!-- hand-drawn mic with a little sound squiggle -->
-        <path d="M38 14c10-5 22-2 25 9 3 12-2 24-12 27-11 3-20-6-21-17-1-8 2-15 8-19z" />
-        <path d="M33 30c4 1 8 0 11-2M35 38c5 1 10 0 14-3M40 46c4 0 8-1 11-4" />
-        <path d="M27 40c0 14 10 22 22 21 11-1 18-10 18-22" />
-        <path d="M48 62l1 16M36 80c8-2 17-2 26 0" />
-        <path d="M78 24c6 4 6 12 0 17M86 17c10 8 10 24 0 32M95 11c13 11 13 32 0 44" />
-      </svg>
+
+      <figure class="photo" data-photo-wrap>
+        <div class="photo-paper torn">
+          <img data-photo alt="" width="400" height="500">
+          <figcaption data-photo-caption></figcaption>
+        </div>
+        <!-- hand-drawn mic; the three sound waves appear one per frame -->
+        <svg class="mic" viewBox="0 0 120 90" aria-hidden="true">
+          <path d="M38 14c10-5 22-2 25 9 3 12-2 24-12 27-11 3-20-6-21-17-1-8 2-15 8-19z" />
+          <path d="M33 30c4 1 8 0 11-2M35 38c5 1 10 0 14-3M40 46c4 0 8-1 11-4" />
+          <path d="M27 40c0 14 10 22 22 21 11-1 18-10 18-22" />
+          <path d="M48 62l1 16M36 80c8-2 17-2 26 0" />
+          <path class="wave wave-1" d="M78 24c6 4 6 12 0 17" />
+          <path class="wave wave-2" d="M86 17c10 8 10 24 0 32" />
+          <path class="wave wave-3" d="M95 11c13 11 13 32 0 44" />
+        </svg>
+      </figure>
     </section>
 
     <section id="listen" class="sheet sheet--ruled torn" aria-labelledby="listen-h">
