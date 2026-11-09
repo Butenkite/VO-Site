@@ -222,24 +222,74 @@
     playLatest.hidden = true;
   }
 
-  /* ───────── roles ───────── */
-  const roles = $("[data-roles]");
-  (S.roles || []).forEach((r) => {
-    const project = has(r.link)
-      ? el("a", { href: r.link, target: "_blank", rel: "noopener", text: r.project })
-      : r.project;
-    const detail = [r.studio, [r.type, r.year].filter(has).join(", ")].filter(has);
-    roles.append(
-      el("li", { class: "tag torn" },
-        has(r.status) ? el("span", { class: "stamp", text: r.status }) : null,
-        el("p", { class: "tag-char", text: r.character }),
-        el("p", { class: "tag-project" }, project),
-        detail.map((d) => el("p", { class: "tag-detail", text: d })),
-      ),
+  /* ───────── roles ─────────
+     size: "lead" → big tags, "supporting" (default) → regular tags, "minor" → cast list.
+     The board holds at most S.rolesOnBoard tags; older supporting roles past that
+     move down into the cast list automatically, so the section never balloons. */
+  const rolesBox = $("[data-roles]");
+  const allRoles = (S.roles || []).filter((r) => r && has(r.character));
+  const sizeOf = (r) => {
+    const v = String(r.size || "").trim().toLowerCase();
+    return v === "lead" || v === "minor" ? v : "supporting";
+  };
+  const projectNode = (r) => has(r.link)
+    ? el("a", { href: r.link, target: "_blank", rel: "noopener", text: r.project })
+    : r.project;
+  const sizeWord = { lead: "Lead", supporting: "Supporting", minor: "Minor" };
+
+  const leads = allRoles.filter((r) => sizeOf(r) === "lead");
+  const supporting = allRoles.filter((r) => sizeOf(r) === "supporting");
+  const onBoard = Math.max(0, (Number(S.rolesOnBoard) || 6) - leads.length);
+  const boardSupporting = supporting.slice(0, onBoard);
+  const castRoles = allRoles.filter((r) => sizeOf(r) === "minor" || (sizeOf(r) === "supporting" && !boardSupporting.includes(r)));
+
+  const tag = (r, big) => {
+    const detail = [r.studio, [sizeWord[sizeOf(r)], r.type, r.year].filter(has).join(", ")].filter(has);
+    return el("li", { class: big ? "tag tag--lead torn" : "tag torn" },
+      has(r.status) ? el("span", { class: "stamp", text: r.status }) : null,
+      el("p", { class: "tag-char", text: r.character }),
+      el("p", { class: "tag-project" }, projectNode(r)),
+      detail.map((d) => el("p", { class: "tag-detail", text: d })),
     );
-  });
-  if (!has(S.roles)) {
-    roles.replaceWith(el("p", { class: "empty-roles", text: "First roles coming soon." }));
+  };
+
+  const boardRoles = [...leads.map((r) => tag(r, true)), ...boardSupporting.map((r) => tag(r, false))];
+  if (boardRoles.length) rolesBox.append(el("ul", { class: "tags" }, boardRoles));
+
+  if (castRoles.length) {
+    const shown = Math.max(1, Number(S.castListShown) || 5);
+    const items = castRoles.map((r, i) => {
+      const extra = [r.studio, r.year].filter(has).join(", ");
+      return el("li", { class: "cast-row", hidden: i >= shown ? "" : null },
+        el("span", { class: "cast-char", text: r.character }),
+        el("span", { class: "cast-dots", "aria-hidden": "true" }),
+        el("span", { class: "cast-proj" },
+          projectNode(r),
+          has(extra) ? el("span", { class: "cast-extra", text: ` (${extra})` }) : null,
+        ),
+      );
+    });
+    const sheet = el("div", { class: "castlist torn" },
+      boardRoles.length ? el("h3", { class: "hand-sub", text: "more roles" }) : null,
+      el("ol", { class: "cast" }, items),
+    );
+    if (castRoles.length > shown) {
+      let open = false;
+      const btn = el("button", { class: "scrap cast-more", type: "button", "aria-expanded": "false", text: `show all ${castRoles.length}` });
+      btn.addEventListener("click", () => {
+        open = !open;
+        items.forEach((li, i) => { if (i >= shown) li.hidden = !open; });
+        btn.textContent = open ? "show fewer" : `show all ${castRoles.length}`;
+        btn.setAttribute("aria-expanded", String(open));
+        tear(sheet, 999);
+      });
+      sheet.append(btn);
+    }
+    rolesBox.append(sheet);
+  }
+
+  if (!allRoles.length) {
+    rolesBox.append(el("p", { class: "empty-roles", text: "First roles coming soon." }));
   }
 
   /* ───────── about + booth ───────── */

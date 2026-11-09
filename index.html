@@ -7,7 +7,7 @@
   <meta name="description" content="Voice actor for animation and video games.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 7l5-2 6 1 5-2 6 2 4-1 0 19-4 2-6-1-5 2-6-2-5 1z' fill='%23fdfdfa' stroke='%2326272b' stroke-width='1.5'/%3E%3Cpath d='M11 12c3 2 3 6 0 8M16 9c5 4 5 11 0 14' fill='none' stroke='%232846a6' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preload" href="fonts/gochi-hand-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <!-- Background sketch: a big pencil mic down the left, sound waves stepping out to the right. -->
@@ -81,7 +81,7 @@
 
     <section id="roles" aria-labelledby="roles-h">
       <h2 id="roles-h" class="hand-h">roles</h2>
-      <ul class="tags" data-roles></ul>
+      <div class="roles" data-roles></div>
     </section>
 
     <div class="pair">
@@ -109,7 +109,19 @@
     <p>© <span data-year></span> <span data-name></span></p>
   </footer>
 
-  <script src="content.js?v=5"></script>
-  <script src="main.js?v=5"></script>
+  <!-- content.js is what you edit most, so it's fetched fresh on every visit
+       (GitHub Pages otherwise caches it for 10 minutes). main.js runs once it's in. -->
+  <script>
+    (function () {
+      var c = document.createElement("script");
+      c.src = "content.js?t=" + Date.now();
+      c.onload = c.onerror = function () {
+        var m = document.createElement("script");
+        m.src = "main.js?v=6";
+        document.body.appendChild(m);
+      };
+      document.body.appendChild(c);
+    })();
+  </script>
 </body>
 </html>
