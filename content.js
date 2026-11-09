@@ -8,7 +8,7 @@
  * ─────────────────────────────────────────────────────────────
  */
 window.SITE = {
-  name: "Your Name",
+  name: "Niko Butenko",
   tagline: "Voice actor for animation and video games.",
 
   // Photos of you, shown as paper cut-outs in the top section.
