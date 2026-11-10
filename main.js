@@ -310,6 +310,38 @@
   } else {
     email.hidden = true;
   }
+
+  // Discord: there's no reliable "open a DM" link, so the scrap copies the username.
+  const discordName = String(c.discord || "").trim();
+  if (discordName) {
+    const btn = $("[data-discord]");
+    const label = $("[data-discord-name]");
+    label.textContent = discordName;
+    btn.setAttribute("aria-label", `Copy Discord username ${discordName}`);
+    btn.hidden = false;
+    $("[data-discord-hint]").hidden = false;
+
+    const copy = async (text) => {
+      try { await navigator.clipboard.writeText(text); return true; } catch (e) { /* fall through */ }
+      const t = el("textarea", { readonly: "", style: "position:fixed;opacity:0" });
+      t.value = text;
+      document.body.append(t);
+      t.select();
+      let ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      t.remove();
+      return ok;
+    };
+    let reset;
+    btn.addEventListener("click", async () => {
+      const ok = await copy(discordName);
+      label.textContent = ok ? "copied!" : discordName;
+      if (!ok) window.prompt("Copy my Discord username:", discordName);
+      clearTimeout(reset);
+      reset = setTimeout(() => (label.textContent = discordName), 1600);
+    });
+  }
+
   if (has(c.agent)) $("[data-agent]").textContent = `Representation: ${c.agent}`;
   const links = $("[data-links]");
   (c.links || []).forEach((l) => {

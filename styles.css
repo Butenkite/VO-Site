@@ -547,6 +547,22 @@ section { scroll-margin-top: 24px; }
 /* ───────── contact ───────── */
 .contact { padding-bottom: 40px; }
 .contact-lead { margin: 0 0 18px; }
+.reach {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 26px;
+}
+.reach-label {
+  display: block;
+  font-size: 0.55em;
+  line-height: 1;
+  color: var(--ink-soft);
+  text-align: left;
+}
+.scrap--discord { color: var(--blue); text-align: left; }
+.scrap--discord .reach-label { margin-bottom: 2px; }
+.reach-hint { margin: 12px 0 0; font-size: 0.85rem; color: var(--ink-soft); }
 .agent { margin: 22px 0 0; }
 .agent:empty { display: none; }
 .links {

@@ -7,7 +7,7 @@
   <meta name="description" content="Voice actor for animation and video games.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M3 7l5-2 6 1 5-2 6 2 4-1 0 19-4 2-6-1-5 2-6-2-5 1z' fill='%23fdfdfa' stroke='%2326272b' stroke-width='1.5'/%3E%3Cpath d='M11 12c3 2 3 6 0 8M16 9c5 4 5 11 0 14' fill='none' stroke='%232846a6' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preload" href="fonts/gochi-hand-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
   <!-- Background sketch: a big pencil mic down the left, sound waves stepping out to the right. -->
@@ -99,7 +99,14 @@
     <section id="contact" class="contact" aria-labelledby="contact-h">
       <h2 id="contact-h" class="hand-h">contact</h2>
       <p class="contact-lead">Auditions, bookings, or just a hello:</p>
-      <a class="scrap scrap--big" data-email></a>
+      <div class="reach">
+        <a class="scrap scrap--big" data-email></a>
+        <button class="scrap scrap--big scrap--discord" type="button" data-discord hidden>
+          <span class="reach-label">discord</span>
+          <span data-discord-name></span>
+        </button>
+      </div>
+      <p class="reach-hint" data-discord-hint hidden>Click Discord to copy my username.</p>
       <p class="agent" data-agent></p>
       <ul class="links" data-links></ul>
     </section>
@@ -117,7 +124,7 @@
       c.src = "content.js?t=" + Date.now();
       c.onload = c.onerror = function () {
         var m = document.createElement("script");
-        m.src = "main.js?v=6";
+        m.src = "main.js?v=7";
         document.body.appendChild(m);
       };
       document.body.appendChild(c);

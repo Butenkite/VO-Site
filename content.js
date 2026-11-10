@@ -66,6 +66,8 @@ window.SITE = {
 
   contact: {
     email: "Butenkite@gmail.com",
+    // Your Discord username (not display name). Shown as a scrap that copies it on click. "" to hide.
+    discord: "alltrex",
     // Optional. Leave "" to hide.
     agent: "",
     // Any number of links. { label: "Casting Call Club", url: "https://..." }
